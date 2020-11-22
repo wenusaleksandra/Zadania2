@@ -38,7 +38,7 @@ namespace Sumy
                 var poprzednialista = Sumy(n - 1);
                 for (int i = 0; i < poprzednialista.Count; i++)
                 {
-                    poprzednialista[i].Add(1);
+                    poprzednialista[i].Insert(0, 1);
                 }
                 if (n > 5)
                 {
@@ -63,13 +63,13 @@ namespace Sumy
                 {
                     if (item.Count > 2)
                     {
-                        if (item[^1] == item[^2] && item[^2] != item[^3])
+                        if (item[0] == item[1] && item[1] != item[2])
                         {
                             var lista3 = new List<int>();
                             lista3.AddRange(item);
-                            lista3.Add(item[^1] + item[^2]);
-                            lista3.RemoveAt(lista3.Count - 2);
-                            lista3.RemoveAt(lista3.Count - 2);
+                            lista3.Add(item[0] + item[1]);
+                            lista3.RemoveAt(0);
+                            lista3.RemoveAt(0);
 
                             nowelisty.Add(lista3);
                         }
@@ -82,16 +82,10 @@ namespace Sumy
 
                 poprzednialista.Add(new List<int> { n });
 
-                foreach (var item in poprzednialista)
-                {
-                    item.Sort();
-                }
-               
                 var rlist = poprzednialista.Select(lst => lst.OrderBy(i => i).ToList())
                     .OrderBy(lst => lst[0]).ToList();
                 return rlist;
             }
-            
         }
     }
 }
