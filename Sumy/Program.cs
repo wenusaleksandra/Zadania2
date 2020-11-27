@@ -61,7 +61,21 @@ namespace Sumy
                 List<List<int>> nowelisty = new List<List<int>>();
                 foreach (var item in poprzednialista)
                 {
-                    if (item.Count > 2)
+                    
+                    if (item.Count > 3)
+                    {
+                        if (item[1] != item[2])
+                        {
+                            var lista3 = new List<int>();
+                            lista3.AddRange(item);
+                            lista3.Add(item[0] + item[1]);
+                            lista3.RemoveAt(0);
+                            lista3.RemoveAt(0);
+
+                            nowelisty.Add(lista3);
+                        }
+                    }
+                    else if (item.Count > 2)
                     {
                         if (item[0] == item[1] && item[1] != item[2])
                         {
