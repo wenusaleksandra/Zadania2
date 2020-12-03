@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace LENLCS1
 {
@@ -9,7 +7,9 @@ namespace LENLCS1
         static void Main(string[] args)
         {
             int liczbaTestow = int.Parse(Console.ReadLine());
-            for (int i = 0; i < liczbaTestow; i++)
+            var tablicaWynikow = new int[liczbaTestow];
+
+            for (int t = 0; t < liczbaTestow; t++)
             {
                 int dlugoscSlowa1 = int.Parse(Console.ReadLine());
                 string slowo1 = Console.ReadLine();
@@ -17,22 +17,32 @@ namespace LENLCS1
                 int dlugoscSlowa2 = int.Parse(Console.ReadLine());
                 string slowo2 = Console.ReadLine();
 
-                var litery1 = slowo1.ToList<char>().Distinct();
-                var litery2 = slowo2.ToList<char>().Distinct();
-                //char[] litery1 = slowo1.ToCharArray();
-                //char[] litery2 = slowo2.ToCharArray();
-                var literyWspolne = new List<char>();
-                foreach (var litera1 in litery1)
-                {
+                var C = new int[dlugoscSlowa1 + 1,dlugoscSlowa2 + 1];
 
-                    if (litery2.Contains(litera1))
+                for (int i = 0; i <= dlugoscSlowa1; i++)
+                {
+                    C[i,0] = 0;
+                }
+                for (int j = 0; j <= dlugoscSlowa2; j++)
+                {
+                    C[0,j] = 0;
+                }
+
+                for (int i = 1; i <= dlugoscSlowa1; i++)
+                {
+                    for (int j = 1; j <= dlugoscSlowa2; j++)
                     {
-                        literyWspolne.Add(litera1);
-                        //litery1.Remove(litera1);
-                        //litery2.Remove(litera1);
+                        if (slowo1[i - 1] == slowo2[j - 1]) C[i, j] = C[i - 1, j - 1] + 1;
+                        else C[i, j] = Math.Max(C[i - 1, j], C[i, j - 1]);
                     }
                 }
-                Console.WriteLine(literyWspolne.Count);
+                        
+                tablicaWynikow[t] = C[dlugoscSlowa1, dlugoscSlowa2];
+            }
+
+            for (int i = 0; i < liczbaTestow; i++)
+            {
+                Console.WriteLine(tablicaWynikow[i]);
             }
             Console.ReadLine();
         }
