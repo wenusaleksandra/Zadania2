@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace CwanyLutek
+namespace Dodawanie
 {
     class Program
     {
